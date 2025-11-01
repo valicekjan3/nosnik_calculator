@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interaktivní webová aplikace pro výpočet zatížení a vizualizaci statiky nosníků">
+    <meta name="keywords" content="nosník, statika, výpočet, zatížení, stavební mechanika">
+    <meta name="author" content="Your Name">
+    <title>Výpočet zatížení nosníku</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📐 Výpočet a vizualizace zatížení nosníku</h1>
+            <p class="subtitle">Interaktivní aplikace pro statické výpočty</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2>Parametry nosníku</h2>
+
+                <div class="input-group">
+                    <label for="beamLength">Délka nosníku (m):</label>
+                    <input type="number" id="beamLength" value="6" min="1" max="20" step="0.1">
+                </div>
+
+                <div class="input-group">
+                    <label for="supportType">Typ podpory:</label>
+                    <select id="supportType">
+                        <option value="simple">Prostý nosník (kloubová podpora)</option>
+                        <option value="cantilever">Konzola (vetknutí)</option>
+                        <option value="continuous">Spojitý nosník</option>
+                    </select>
+                </div>
+
+                <h3>Zatížení</h3>
+
+                <div class="load-inputs">
+                    <h4>Bodové zatížení</h4>
+                    <div class="input-group">
+                        <label for="pointLoadForce">Síla F (kN):</label>
+                        <input type="number" id="pointLoadForce" value="10" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="pointLoadPosition">Pozice (m):</label>
+                        <input type="number" id="pointLoadPosition" value="3" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="addPointLoad()">Přidat bodové zatížení</button>
+                </div>
+
+                <div class="load-inputs">
+                    <h4>Spojité zatížení</h4>
+                    <div class="input-group">
+                        <label for="distributedLoad">Zatížení q (kN/m):</label>
+                        <input type="number" id="distributedLoad" value="5" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="distLoadStart">Od (m):</label>
+                        <input type="number" id="distLoadStart" value="0" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="distLoadEnd">Do (m):</label>
+                        <input type="number" id="distLoadEnd" value="6" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="addDistributedLoad()">Přidat spojité zatížení</button>
+                </div>
+
+                <button class="btn-calculate" onclick="calculate()">Vypočítat</button>
+                <button class="btn-reset" onclick="resetAll()">Reset</button>
+            </div>
+
+            <div class="visualization-section">
+                <h2>Vizualizace</h2>
+                <canvas id="beamCanvas" width="800" height="200"></canvas>
+
+                <h3>Diagram posouvající síly (Q)</h3>
+                <canvas id="shearCanvas" width="800" height="200"></canvas>
+
+                <h3>Diagram ohybového momentu (M)</h3>
+                <canvas id="momentCanvas" width="800" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2>Výsledky</h2>
+            <div id="results">
+                <p class="info">Zadejte parametry a klikněte na "Vypočítat"</p>
+            </div>
+
+            <div id="loads-list">
+                <h3>Aktivní zatížení</h3>
+                <div id="activeLoads"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Nosník Calculator | <a href="https://github.com/yourusername/nosnik-calculator" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
